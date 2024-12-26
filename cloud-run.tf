@@ -10,7 +10,7 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
       
       env {
         name  = "WORDPRESS_DB_HOST"
-        value = google_sql_database_instance.wp_db_instance.id
+        value = google_sql_database_instance.wp_db_instance.self_link
       }
 
       env {
@@ -40,7 +40,7 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
 
         cpu_idle = true
       }
-      
+
       volume_mounts {
         name       = "mysql"
         mount_path = "/mysql"

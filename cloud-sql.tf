@@ -16,7 +16,7 @@ resource "google_sql_database_instance" "wp_db_instance" {
 
     ip_configuration {
       ipv4_enabled                                  = false
-      private_network                               = "default"
+      private_network                               = data.google_compute_network.my-network.self_link
       enable_private_path_for_google_cloud_services = true
     }
   }
@@ -33,4 +33,8 @@ resource "google_sql_user" "wp_db_user" {
   name     = "admin"
   instance = google_sql_database_instance.wp_db_instance.name
   password = "changeme"
+}
+
+data "google_compute_network" "my-network" {
+  name = "default"
 }
