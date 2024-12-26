@@ -1,4 +1,6 @@
 resource "google_sql_database_instance" "wp_db_instance" {
+  provider = google-beta
+
   name             = "wp-db-instance"
   region           = "us-central1"
   database_version = "MYSQL_8_0"
