@@ -42,8 +42,8 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
       }
 
       volume_mounts {
-        name       = "mysql"
-        mount_path = "/mysql"
+        name       = "cloudsql"
+        mount_path = "/cloudsql"
       }
     }
 
@@ -53,7 +53,7 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
     }
 
     volumes {
-      name = "mysql"
+      name = "cloudsql"
       cloud_sql_instance {
         instances = [google_sql_database_instance.wp_db_instance.connection_name]
       }
