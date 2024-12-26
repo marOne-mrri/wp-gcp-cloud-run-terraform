@@ -2,7 +2,7 @@ resource "google_sql_database_instance" "wp_db_instance" {
   name             = "wp-db-instance"
   region           = "us-central1"
   database_version = "MYSQL_8_0"
-  depends_on = [google_service_networking_connection.private_vpc_connection]
+  depends_on       = [google_service_networking_connection.private_vpc_connection]
   settings {
     tier              = "db-f1-micro"
     availability_type = "ZONAL"

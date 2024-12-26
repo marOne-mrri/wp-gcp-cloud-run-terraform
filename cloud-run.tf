@@ -3,11 +3,11 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
   location            = "us-central1"
   deletion_protection = false
   ingress             = "INGRESS_TRAFFIC_ALL"
-
+  custom_audiences    = []
   template {
     containers {
       image = "wordpress:latest"
-      
+
       env {
         name  = "WORDPRESS_DB_HOST"
         value = google_sql_database_instance.wp_db_instance.self_link
@@ -61,9 +61,16 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
   }
 }
 
+data "google_iam_policy" "all_users" {
+  binding {
+    role = "roles/viewer"
+    members = [
+      "allUsers",
+    ]
+  }
+}
 
-
-# WORDPRESS_DB_HOST: db
-# WORDPRESS_DB_USER: wp_user
-# WORDPRESS_DB_PASSWORD: wp_pass
-# WORDPRESS_DB_NAME: wp_db
+resource "google_cloud_run_v2_service_iam_policy" "policy" {
+  name        = google_cloud_run_v2_service.wordpress_service.name
+  policy_data = data.google_iam_policy.admin.policy_data
+}
