@@ -61,16 +61,18 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
   }
 }
 
-data "google_iam_policy" "all_users" {
-  binding {
-    role = "roles/viewer"
-    members = [
-      "allUsers",
-    ]
-  }
-}
-
 resource "google_cloud_run_v2_service_iam_policy" "policy" {
   name        = google_cloud_run_v2_service.wordpress_service.name
-  policy_data = data.google_iam_policy.all_users.id
+  policy_data = <<EOF
+{
+  "bindings": [
+    {
+      "role": "roles/run.invoker",
+      "members": [
+        "allUsers"
+      ]
+    }
+  ]
+}
+EOF
 }
