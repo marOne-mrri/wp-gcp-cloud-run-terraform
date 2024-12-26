@@ -7,13 +7,13 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "tf-state-prod"
+    bucket = "terraform-state-prd"
     prefix = "terraform/state"
   }
 
 }
 
 provider "google" {
-  project = "my-project-id"
+  project = "named-icon-445521-k5"
   region  = "us-central1"
 }
