@@ -12,7 +12,7 @@ resource "google_sql_database_instance" "wp_db_instance" {
     }
 
     edition               = "ENTERPRISE"
-    disk_autoresize_limit = "20GB"
+    disk_autoresize_limit = "20"
 
     ip_configuration {
       ipv4_enabled                                  = false
