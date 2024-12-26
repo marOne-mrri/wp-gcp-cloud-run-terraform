@@ -72,5 +72,5 @@ data "google_iam_policy" "all_users" {
 
 resource "google_cloud_run_v2_service_iam_policy" "policy" {
   name        = google_cloud_run_v2_service.wordpress_service.name
-  policy_data = data.google_iam_policy.admin.policy_data
+  policy_data = data.google_iam_policy.all_users.id
 }
