@@ -27,6 +27,26 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
         name  = "WORDPRESS_DB_NAME"
         value = google_sql_database.wp_database.name
       }
+      
+      env {
+        name  = "DB_HOST"
+        value = google_sql_database_instance.wp_db_instance.self_link
+      }
+
+      env {
+        name  = "DB_USER"
+        value = google_sql_user.wp_db_user.name
+      }
+
+      env {
+        name  = "DB_PASSWORD"
+        value = google_sql_user.wp_db_user.password
+      }
+
+      env {
+        name  = "DB_NAME"
+        value = google_sql_database.wp_database.name
+      }
 
       ports {
         container_port = 80
