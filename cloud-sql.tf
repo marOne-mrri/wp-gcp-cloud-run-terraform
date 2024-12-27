@@ -20,10 +20,7 @@ resource "google_sql_database_instance" "wp_db_instance" {
       ipv4_enabled                                  = false
       private_network                               = data.google_compute_network.my_network.self_link
       enable_private_path_for_google_cloud_services = true
-      authorized_networks {
-        name = data.google_compute_network.my_network.name
-        value = "0.0.0.0/0"
-      }
+      allocated_ip_range = google_compute_global_address.private_ip_address.name
     }
   }
 
