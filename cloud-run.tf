@@ -78,6 +78,7 @@ resource "google_cloud_run_v2_service" "wordpress_service" {
         instances = [google_sql_database_instance.wp_db_instance.connection_name]
       }
     }
+    
     vpc_access {
       egress = "PRIVATE_RANGES_ONLY"
       network_interfaces {
